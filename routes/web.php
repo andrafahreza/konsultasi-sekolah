@@ -64,10 +64,13 @@ Route::middleware('auth')->group(function() {
 
         Route::prefix("laporan")->group(function() {
             Route::get('laporan-periode', [LaporanController::class, 'laporanPeriode'])->name("laporan-periode");
+            Route::get('laporan-periode/{from?}/{to?}', [LaporanController::class, 'laporanPeriodeCetak'])->name("laporan-periode-cetak");
             Route::post('laporan-periode', [LaporanController::class, 'laporanPeriode'])->name("filter-laporan-periode");
             Route::get('laporan-siswa', [LaporanController::class, 'laporanSiswa'])->name("laporan-siswa");
+            Route::get('laporan-siswa/{from?}/{to?}/{siswa_id?}', [LaporanController::class, 'laporanSiswaCetak'])->name("laporan-siswa-cetak");
             Route::post('laporan-siswa', [LaporanController::class, 'laporanSiswa'])->name("filter-laporan-siswa");
             Route::get('laporan-jenis', [LaporanController::class, 'laporanJenis'])->name("laporan-jenis");
+            Route::get('laporan-jenis/{from?}/{to?}/{jenis?}', [LaporanController::class, 'laporanJenisCetak'])->name("laporan-jenis-cetak");
             Route::post('laporan-jenis', [LaporanController::class, 'laporanJenis'])->name("filter-laporan-jenis");
         });
     });

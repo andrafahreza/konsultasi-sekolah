@@ -47,6 +47,7 @@
                                 Laporan Per Periode
                                 @if ($filter)
                                     <br> Filter {{ date('d-m-Y', strtotime($from)) }} s/d {{ date('d-m-Y', strtotime($to)) }}
+                                    <br> <a class="btn btn-primary" href="{{ route('laporan-siswa-cetak', ['from' => $from, 'to' => $to, 'siswa_id' => $siswaId]) }}" target="_blank">Cetak Laporan</a>
                                 @endif
                             </h5>
                         </div>
@@ -73,7 +74,6 @@
                                         <th>Jenis</th>
                                         <th>Konselor</th>
                                         <th>Tanggal BK</th>
-                                        <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -85,7 +85,6 @@
                                                 <td><span class="badge bg-secondary">{{ strtoupper($item->jenis) }}</span></td>
                                                 <td>{{ $item->konselor->nama_konselor }}</td>
                                                 <td>{{ date('d-m-Y H:i:s', strtotime($item->tgl_bk)) }}</td>
-                                                <td></td>
                                             </tr>
                                         @endforeach
                                     @endif
