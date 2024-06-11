@@ -11,6 +11,8 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [AuthController::class, 'login'])->name("login")->middleware('guest');
 Route::post('/', [AuthController::class, 'auth'])->name("auth");
+Route::get('daftar', [AuthController::class, 'daftar'])->name("daftar")->middleware('guest');
+Route::post('daftar', [AuthController::class, 'prosesDaftar'])->name("proses-daftar");
 
 Route::middleware('auth')->group(function() {
     Route::get('/logout', [AuthController::class, 'logout'])->name("logout");
@@ -20,6 +22,11 @@ Route::middleware('auth')->group(function() {
     Route::post('/ganti-password', [UserController::class, 'gantiPassword'])->name("ganti-password");
 
     Route::prefix("master-data")->group(function() {
+        Route::prefix("verifikasi-siswa")->group(function() {
+            Route::get('/', [UserController::class, 'verifikasi'])->name("verifikasi-siswa");
+            Route::post('/', [UserController::class, 'verifikasiSiswa'])->name("verif-siswa");
+        });
+
         Route::prefix("pengguna")->group(function() {
             Route::get('/', [UserController::class, 'pengguna'])->name("pengguna");
             Route::post('ubah-status', [UserController::class, 'ubahStatus'])->name("ubah-status");

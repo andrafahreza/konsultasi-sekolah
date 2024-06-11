@@ -19,18 +19,22 @@
     <div class="navbar-brand-box">
         <a href="{{ route('home') }}" class="logo logo-dark">
             <span class="logo-sm">
-                <img src="/assets/images/logo-sm.png" alt="" height="22">
+                {{-- <img src="/assets/images/logo-sm.png" alt="" height="22"> --}}
+                Konsultasi
             </span>
             <span class="logo-lg">
-                <img src="/assets/images/logo-dark.png" alt="" height="22">
+                {{-- <img src="/assets/images/logo-dark.png" alt="" height="22"> --}}
+                Konsultasi
             </span>
         </a>
         <a href="{{ route('home') }}" class="logo logo-light">
             <span class="logo-sm">
-                <img src="/assets/images/logo-sm.png" alt="" height="22">
+                {{-- <img src="/assets/images/logo-sm.png" alt="" height="22"> --}}
+                Konsultasi
             </span>
             <span class="logo-lg">
-                <img src="/assets/images/logo-light.png" alt="" height="22">
+                {{-- <img src="/assets/images/logo-light.png" alt="" height="22"> --}}
+                Konsultasi
             </span>
         </a>
         <button type="button" class="btn btn-sm p-0 fs-3xl header-item float-end btn-vertical-sm-hover"
@@ -49,6 +53,12 @@
                     <a href="{{ route('home') }}" class="nav-link menu-link @if($title == 'Halaman Utama') active @endif"> <i class="ph-gauge"></i>
                         <span data-key="t-dashboards">Dashboard</span> </a>
                 </li>
+                @if ($user->tipe == "admin")
+                    <li class="nav-item">
+                        <a href="{{ route('verifikasi-siswa') }}" class="nav-link menu-link @if($title == 'Verifikasi Siswa') active @endif"> <i class="ph-check-circle"></i>
+                            <span data-key="t-verifikasi">Verifikasi Siswa</span> </a>
+                    </li>
+                @endif
 
                 @if ($user->tipe == "admin" || $user->tipe == "konselor")
                     <li class="menu-title"><span data-key="t-master-data">Master Data</span></li>

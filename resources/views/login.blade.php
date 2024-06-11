@@ -49,6 +49,13 @@
                                                 <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                                             </div>
                                         @endif
+
+                                        @if (Session::has('success'))
+                                            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                                                <strong>Sukses!</strong>  {{ Session::get('success'); }}
+                                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                            </div>
+                                        @endif
                                         <div class="text-center mt-5">
                                             <h5 class="fs-3xl">LOGIN SISTEM</h5>
                                             <p class="text-muted">Silahkan login menggunakan akun anda</p>
@@ -81,6 +88,12 @@
 
                                                 <div class="mt-4">
                                                     <button class="btn btn-primary w-100" type="submit">Login</button>
+                                                </div>
+
+                                                <div class="text-center mt-5">
+                                                    <p class="mb-o">
+                                                        Tidak punya akun? <a href="{{ route('daftar') }}" class="fw-semibold text-primary text-decoration-underline">Daftar</a>
+                                                    </p>
                                                 </div>
                                             </form>
                                         </div>
@@ -115,8 +128,5 @@
     <script src="/assets/js/pages/swiper.init.js"></script>
 
 </body>
-
-
-<!-- Mirrored from themesbrand.com/steex/layouts/auth-signin.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 29 Feb 2024 10:16:47 GMT -->
 
 </html>

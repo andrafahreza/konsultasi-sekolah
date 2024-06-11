@@ -52,7 +52,10 @@ class UserController extends Controller
     public function siswa()
     {
         $title = "Siswa";
-        $data = User::where('tipe', 'siswa')->latest()->get();
+        $data = User::where('tipe', 'siswa')
+        ->where('status', 1)
+        ->latest()
+        ->get();
 
         return view('pages.siswa', compact("title", "data"));
     }
@@ -595,6 +598,43 @@ class UserController extends Controller
             DB::commit();
 
             return redirect()->back()->with("success", "Berhasil memperbarui password");
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($th->getMessage());
+        }
+    }
+
+    // Verifikasi Siswa
+    public function verifikasi()
+    {
+        $title = "Verifikasi Siswa";
+        $data = User::where('tipe', 'siswa')
+        ->where('status', 0)
+        ->latest()
+        ->get();
+
+        return view('pages.verifikasi-siswa', compact('title', 'data'));
+    }
+
+    public function verifikasiSiswa(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $user = User::find($request->id);
+            if (empty($user)) {
+                throw new \Exception("User tidak ditemukan");
+            }
+
+            $user->status = true;
+            if (!$user->update()) {
+                throw new \Exception("Terjadi kesalahan saat memperbarui user");
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil memverifikasi siswa");
 
         } catch (\Throwable $th) {
             DB::rollBack();
