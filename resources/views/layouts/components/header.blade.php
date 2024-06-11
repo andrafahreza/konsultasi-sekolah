@@ -118,12 +118,20 @@
                     </li>
                 @endif
 
-                @if ($user->tipe != "orangtua" && $user->tipe != "kepala_sekolah")
+                @if ($user->tipe != "kepala_sekolah")
                     <li class="menu-title"><span data-key="t-bimbingan">Komunikasi</span></li>
-                    <li class="nav-item">
-                        <a href="{{ route('list-chat') }}" class="nav-link menu-link @if($title == 'Chat') active @endif"> <i class="ph-chats-circle-light"></i>
-                            <span data-key="t-chat">Chat</span> </a>
-                    </li>
+                    @if ($user->tipe != "orangtua")
+                        <li class="nav-item">
+                            <a href="{{ route('list-chat') }}" class="nav-link menu-link @if($title == 'Chat') active @endif"> <i class="ph-chats-circle-light"></i>
+                                <span data-key="t-chat">Chat</span> </a>
+                        </li>
+                        @endif
+                    @if ($user->tipe == "orangtua" || $user->tipe == "konselor")
+                        <li class="nav-item">
+                            <a href="{{ route('list-chat-konselor') }}" class="nav-link menu-link @if($title == 'Chat Konselor') active @endif"> <i class="ph-chats-circle-light"></i>
+                                <span data-key="t-chat-konselor">Chat Konselor</span> </a>
+                        </li>
+                    @endif
                 @endif
 
             </ul>

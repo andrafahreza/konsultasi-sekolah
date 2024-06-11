@@ -272,7 +272,7 @@
 
                                                 <div class="text-center mt-5">
                                                     <p class="mb-o">
-                                                        Sudah punya akun? <a href="{{ route('login') }}" class="fw-semibold text-primary text-decoration-underline">Daftar</a>
+                                                        Sudah punya akun? <a href="{{ route('login') }}" class="fw-semibold text-primary text-decoration-underline">Login</a>
                                                     </p>
                                                 </div>
                                             </form>

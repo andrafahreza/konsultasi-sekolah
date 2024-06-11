@@ -197,7 +197,13 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            $cekUsername = User::where('username', $request->username)->first();
+            $cekUsername = User::where('username', $request->username)
+            ->where(function($query) use($id) {
+                if ($id) {
+                    $query->whereNot('id', $id);
+                }
+            })
+            ->first();
             if (!empty($cekUsername)) {
                 throw new \Exception("User dengan username $request->username sudah pernah terdaftar");
             }

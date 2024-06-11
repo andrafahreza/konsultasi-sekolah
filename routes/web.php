@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ChatController;
+use App\Http\Controllers\ChatKonselorController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\LaporanController;
 use App\Http\Controllers\ManajemenDataBkController;
@@ -89,5 +90,14 @@ Route::middleware('auth')->group(function() {
         Route::post('send', [ChatController::class, 'send'])->name("send-chat");
         Route::post('end', [ChatController::class, 'end'])->name("chat-end");
         Route::get('history/{id?}', [ChatController::class, 'history'])->name("chat-history");
+    });
+
+    Route::prefix("chat-konselor")->group(function() {
+        Route::get('list', [ChatKonselorController::class, 'list'])->name("list-chat-konselor");
+        Route::post('list', [ChatKonselorController::class, 'add'])->name("add-chat-konselor");
+        Route::get('chat/{id_chat}', [ChatKonselorController::class, 'chat'])->name("start-chat-konselor");
+        Route::post('send', [ChatKonselorController::class, 'send'])->name("send-chat-konselor");
+        Route::get('get/{id_bk?}', [ChatKonselorController::class, 'get'])->name("get-chat-konselor");
+
     });
 });
