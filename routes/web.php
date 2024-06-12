@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function() {
     Route::get('/profile', [UserController::class, 'profile'])->name("profile");
     Route::post('/profile', [UserController::class, 'simpanProfile'])->name("simpan-profile");
     Route::post('/ganti-password', [UserController::class, 'gantiPassword'])->name("ganti-password");
+    Route::post('/ganti-photo', [UserController::class, 'gantiPhoto'])->name("ganti-photo");
 
     Route::prefix("master-data")->group(function() {
         Route::prefix("verifikasi-siswa")->group(function() {

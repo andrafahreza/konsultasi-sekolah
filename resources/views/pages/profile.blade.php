@@ -22,6 +22,25 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-header">
+                            <div class="card-title mb-0">Ganti Photo Profil</div>
+                        </div>
+                        <div class="card-body">
+                            <form method="POST" action="{{ route('ganti-photo') }}" enctype="multipart/form-data">
+                                @csrf
+                                <div class="row mt-4">
+                                    <div class="col-md-4">
+                                        <label>Upload Photo</label>
+                                        <input type="file" class="form-control" name="photo" required>
+                                        <button type="submit" class="btn btn-primary mt-4">Ganti Photo</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-header">
                             <div class="card-title mb-0">Ganti Password</div>
                         </div>
                         <div class="card-body">

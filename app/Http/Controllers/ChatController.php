@@ -42,15 +42,17 @@ class ChatController extends Controller
 
         $bk = ManajemenDataBk::find($chat->manajemen_data_bk_id);
         $title = "History Chat";
+        $photo = null;
 
         if (Auth::user()->tipe == "konselor" || Auth::user()->tipe == "admin" || Auth::user()->tipe == "orangtua" || Auth::user()->tipe == "kepala_sekolah") {
             $nama = $bk->siswa->nama_lengkap;
+            $photo = $bk->siswa->pengguna->photo;
         } else if (Auth::user()->tipe == "siswa") {
             $nama = $bk->konselor->nama_konselor;
+            $photo = $bk->konselor->pengguna->photo;
         }
 
-
-        return view('pages.history-chat', compact("chat", "title", "nama"));
+        return view('pages.history-chat', compact("chat", "title", "nama", "photo"));
     }
 
     public function start($id = null)
@@ -74,14 +76,17 @@ class ChatController extends Controller
         }
 
         $title = "Chat";
+        $photo = null;
 
         if (Auth::user()->tipe == "konselor") {
             $nama = $bk->siswa->nama_lengkap;
+            $photo = $bk->siswa->pengguna->photo;
         } else if (Auth::user()->tipe == "siswa") {
             $nama = $bk->konselor->nama_konselor;
+            $photo = $bk->konselor->pengguna->photo;
         }
 
-        return view('pages.start-chat', compact("title", "chat", "nama"));
+        return view('pages.start-chat', compact("title", "chat", "nama", "photo"));
     }
 
     public function get($id = null)

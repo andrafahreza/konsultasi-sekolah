@@ -209,7 +209,7 @@
                         data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <span class="d-flex align-items-center">
                             <img class="rounded-circle header-profile-user"
-                                src="/assets/images/users/32/avatar-1.jpg" alt="Header Avatar">
+                                src="@if (Auth::user()->photo == null) /user.png @else {{ Auth::user()->photo }} @endif" alt="Header Avatar">
                             <span class="text-start ms-xl-2">
                                 <span class="d-none d-xl-inline-block ms-1 fw-medium user-name-text">{{ $name }}</span>
                                 <span class="d-none d-xl-block ms-1 fs-sm user-name-sub-text">{{ strtoupper($user->tipe) }}</span>

@@ -611,6 +611,35 @@ class UserController extends Controller
         }
     }
 
+    public function gantiPhoto(Request $request)
+    {
+        DB::beginTransaction();
+
+        try {
+            $request->validate([
+                'photo' => 'required|image|mimes:jpeg,png,jpg,gif,svg',
+            ]);
+
+            $imageName = time().'.'.$request->photo->extension();
+            $request->photo->move(public_path('/'), $imageName);
+
+            $data = Auth::user();
+            $data->photo = "/$imageName";
+
+            if (!$data->update()) {
+                throw new \Exception("Terjadi kesalahan saat memperbarui photo");
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil menyimpan data jadwal");
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($th->getMessage());
+        }
+    }
+
     // Verifikasi Siswa
     public function verifikasi()
     {

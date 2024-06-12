@@ -81,7 +81,7 @@
                                                 <div class="d-flex align-items-center">
                                                     <div
                                                         class="flex-shrink-0 chat-user-img online user-own-img align-self-center me-3 ms-0">
-                                                        <img src="/assets/images/users/avatar-2.jpg"
+                                                        <img src="@if ($photo == null) /user.png @else {{ $photo }} @endif"
                                                             class="rounded-circle avatar-xs" alt="">
                                                         <span class="user-status"></span>
                                                     </div>
@@ -185,6 +185,14 @@
 
         function ajaxCall() {
             var url = "{{ route('get-chat-konselor') }}" + "/" + "{{ $chat->id }}";
+            var photo = "{{ $photo }}";
+
+            if (photo == null || photo == "") {
+                photo = "/user.png";
+            }
+
+            $('.nama_siswa').html("{{ $nama }}");
+            $('.userprofile').attr('src', photo);
 
             $.ajax({
                 type: "get",
