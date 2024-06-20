@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Konselor;
+use App\Models\ManajemenDataBk;
+use App\Models\Siswa;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -9,6 +12,13 @@ class HomeController extends Controller
     public function home()
     {
         $title = "Halaman Utama";
-        return view('pages.home', compact("title"));
+        $siswa = Siswa::get();
+        $konselor = Konselor::get();
+        $bk = ManajemenDataBk::whereNull('isi')
+        ->whereNull('tindakan')
+        ->latest()
+        ->get();
+
+        return view('pages.home', compact("title", "siswa", "konselor", "bk"));
     }
 }
