@@ -9,6 +9,14 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
+    public function index()
+    {
+        $siswa = Siswa::get();
+        $konselor = Konselor::get();
+
+        return view('index', compact('siswa', 'konselor'));
+    }
+
     public function home()
     {
         $title = "Halaman Utama";
