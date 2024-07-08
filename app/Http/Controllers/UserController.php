@@ -65,15 +65,8 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            $cekNik = User::where('username', $request->nik)->first();
-            if (!empty($cekNik)) {
-                throw new \Exception("Siswa dengan nik $request->nik sudah pernah terdaftar");
-            }
-
             $dataUser = [
                 "username" => $request->nik,
-                "password" => Hash::make($request->nik),
-                "status" => 1,
                 "tipe" => "siswa"
             ];
 
@@ -124,6 +117,14 @@ class UserController extends Controller
                     throw new \Exception("Terjadi kesalahan saat memperbarui siswa");
                 }
             } else {
+                $cekNik = User::where('username', $request->nik)->first();
+                if (!empty($cekNik)) {
+                    throw new \Exception("Siswa dengan nik $request->nik sudah pernah terdaftar");
+                }
+
+                $dataUser['password'] = Hash::make($request->nik);
+                $dataUser['status'] = 1;
+
                 $user = User::create($dataUser);
                 if (!$user->save()) {
                     throw new \Exception("Gagal menambahkan user");

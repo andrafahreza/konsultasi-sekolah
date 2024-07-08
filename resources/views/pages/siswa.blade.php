@@ -43,12 +43,11 @@
                                             <td>{{ $item->username }}</td>
                                             <td>{{ $item->siswa->nama_lengkap }}</td>
                                             <td>{{ $item->siswa->tempat_lahir }}, {{ date('d-m-Y', strtotime($item->siswa->tgl_lahir)) }}</td>
-                                            <td>{{ $item->siswa->alamat }}</td>
+                                            <td>{{ $item->siswa->alamat }}</td> x x
                                             <td>{{ $item->siswa->telepon }}</td>
                                             <td>
                                                 @if (auth()->user()->tipe == "admin")
                                                     <button type="button" class="btn btn-secondary" onclick="edit({{ $item->id }})" id="btnEdit">Edit</button>
-                                                    <a href="{{ route('orang-tua', [$item->id]) }}" class="btn btn-warning"> List Orang Tua</a>
                                                 @endif
                                             </td>
                                         </tr>

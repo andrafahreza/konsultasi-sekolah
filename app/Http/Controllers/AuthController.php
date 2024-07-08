@@ -66,9 +66,13 @@ class AuthController extends Controller
                 throw new \Exception("Siswa dengan nik $request->nik sudah pernah terdaftar");
             }
 
+            if ($request->password != $request->confirm_password) {
+                throw new \Exception("Password dan konfirmasi password harus sama");
+            }
+
             $dataUser = [
                 "username" => $request->nik,
-                "password" => Hash::make($request->nik),
+                "password" => Hash::make($request->password),
                 "status" => 0,
                 "tipe" => "siswa"
             ];
@@ -76,28 +80,28 @@ class AuthController extends Controller
             $dataSiswa = [
                 "nik" => $request->nik,
                 "nama_lengkap" => $request->nama_lengkap,
-                "tempat_lahir" => $request->tempat_lahir,
-                "tgl_lahir" => $request->tgl_lahir,
-                "agama" => $request->agama,
-                "golongan_darah" => $request->golongan_darah,
-                "alamat" => $request->alamat,
-                "telepon" => $request->telepon,
-                "sekolah_asal" => $request->sekolah_asal,
-                "diterima_sebagai" => "siswa",
-                "tahun_terima" => $request->tahun_terima,
-                "hobi" => $request->hobi,
-                "nama_ayah" => $request->nama_ayah,
-                "tempat_lahir_ayah" => $request->tempat_lahir_ayah,
-                "tgl_lahir_ayah" => $request->tgl_lahir_ayah,
-                "pekerjaan_ayah" => $request->pekerjaan_ayah,
-                "agama_ayah" => $request->agama_ayah,
-                "nama_ibu" => $request->nama_ibu,
-                "tempat_lahir_ibu" => $request->tempat_lahir_ibu,
-                "tgl_lahir_ibu" => $request->tgl_lahir_ibu,
-                "pekerjaan_ibu" => $request->pekerjaan_ibu,
-                "agama_ibu" => $request->agama_ibu,
-                "alamat_ortu" => $request->alamat_ortu,
-                "telepon_ortu" => $request->telepon_ortu,
+                // "tempat_lahir" => $request->tempat_lahir,
+                // "tgl_lahir" => $request->tgl_lahir,
+                // "agama" => $request->agama,
+                // "golongan_darah" => $request->golongan_darah,
+                // "alamat" => $request->alamat,
+                // "telepon" => $request->telepon,
+                // "sekolah_asal" => $request->sekolah_asal,
+                // "diterima_sebagai" => "siswa",
+                // "tahun_terima" => $request->tahun_terima,
+                // "hobi" => $request->hobi,
+                // "nama_ayah" => $request->nama_ayah,
+                // "tempat_lahir_ayah" => $request->tempat_lahir_ayah,
+                // "tgl_lahir_ayah" => $request->tgl_lahir_ayah,
+                // "pekerjaan_ayah" => $request->pekerjaan_ayah,
+                // "agama_ayah" => $request->agama_ayah,
+                // "nama_ibu" => $request->nama_ibu,
+                // "tempat_lahir_ibu" => $request->tempat_lahir_ibu,
+                // "tgl_lahir_ibu" => $request->tgl_lahir_ibu,
+                // "pekerjaan_ibu" => $request->pekerjaan_ibu,
+                // "agama_ibu" => $request->agama_ibu,
+                // "alamat_ortu" => $request->alamat_ortu,
+                // "telepon_ortu" => $request->telepon_ortu,
             ];
 
             $user = User::create($dataUser);

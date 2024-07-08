@@ -64,7 +64,7 @@
                                             <form action="{{ route('auth') }}" method="POST">
                                                 @csrf
                                                 <div class="mb-3">
-                                                    <label for="username" class="form-label">Username <span
+                                                    <label for="username" class="form-label">Username / NIK <span
                                                             class="text-danger">*</span></label>
                                                     <div class="position-relative ">
                                                         <input type="text" class="form-control  password-input"

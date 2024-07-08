@@ -40,12 +40,12 @@ Route::middleware('auth')->group(function() {
             Route::get('show/{id?}', [UserController::class, 'showSiswa'])->name("show-siswa");
             Route::post('simpan/{id?}', [UserController::class, 'simpanSiswa'])->name("siswa-simpan");
 
-            Route::prefix("orang-tua")->group(function() {
-                Route::get('list/{id?}', [UserController::class, 'orangTua'])->name("orang-tua");
-                Route::get('show/{id?}', [UserController::class, 'showOrangTua'])->name("show-orang-tua");
-                Route::post('simpan/{id?}', [UserController::class, 'simpanOrangTua'])->name("orang-tua-simpan");
-                Route::post('hapus/{id?}', [UserController::class, 'hapusOrangTua'])->name("orang-tua-hapus");
-            });
+            // Route::prefix("orang-tua")->group(function() {
+            //     Route::get('list/{id?}', [UserController::class, 'orangTua'])->name("orang-tua");
+            //     Route::get('show/{id?}', [UserController::class, 'showOrangTua'])->name("show-orang-tua");
+            //     Route::post('simpan/{id?}', [UserController::class, 'simpanOrangTua'])->name("orang-tua-simpan");
+            //     Route::post('hapus/{id?}', [UserController::class, 'hapusOrangTua'])->name("orang-tua-hapus");
+            // });
         });
 
         Route::prefix("kepala-sekolah")->group(function() {

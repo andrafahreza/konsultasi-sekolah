@@ -127,10 +127,10 @@
                         </li>
                         @endif
                     @if ($user->tipe == "orangtua" || $user->tipe == "konselor")
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="{{ route('list-chat-konselor') }}" class="nav-link menu-link @if($title == 'Chat Konselor') active @endif"> <i class="ph-chats-circle-light"></i>
                                 <span data-key="t-chat-konselor">Chat Konselor</span> </a>
-                        </li>
+                        </li> --}}
                     @endif
                 @endif
 

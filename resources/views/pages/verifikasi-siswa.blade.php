@@ -27,11 +27,8 @@
                             <table id="example" class="table table-bordered dt-responsive nowrap table-striped align-middle mt-2" style="width:100%">
                                 <thead>
                                     <tr>
-                                        <th>Username</th>
+                                        <th>Username / NIK</th>
                                         <th>Nama</th>
-                                        <th>Tempat, Tgl Lahir</th>
-                                        <th>Alamat</th>
-                                        <th>Telepon</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -40,9 +37,6 @@
                                         <tr>
                                             <td>{{ $item->username }}</td>
                                             <td>{{ $item->siswa->nama_lengkap }}</td>
-                                            <td>{{ $item->siswa->tempat_lahir }}, {{ date('d-m-Y', strtotime($item->siswa->tgl_lahir)) }}</td>
-                                            <td>{{ $item->siswa->alamat }}</td>
-                                            <td>{{ $item->siswa->telepon }}</td>
                                             <td>
                                                 <button type="button" class="btn btn-secondary" onclick="detail({{ $item->id }})" id="btnDetail">Detail</button>
                                                 <button type="button" class="btn btn-success" onclick="verif({{ $item->id }})" id="btnVerif">Verifikasi</button>
@@ -83,153 +77,157 @@
     <div class="modal fade modalSiswa" tabindex="-1" aria-labelledby="exampleModalFullscreenLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalFullscreenLabel">Detail Siswa</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                    <div class="errorMessage d-none">
-                        <div class="alert alert-danger" role="alert">
-                            <strong>Error!</strong>  <span id="spanError"></span>
+                <form action="{{ route('siswa-simpan') }}" method="POST" id="formSiswa">
+                    @csrf
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalFullscreenLabel">Detail Siswa</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="errorMessage d-none">
+                            <div class="alert alert-danger" role="alert">
+                                <strong>Error!</strong>  <span id="spanError"></span>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <label>Nik <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="nik" id="nik" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Nama Lengkap <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" readonly>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Tempat Lahir <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Tanggal Lahir <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Agama <span class="text-danger">*</span></label>
+                                <select class="form-control" name="agama" id="agama" required>
+                                    <option value="">Pilih Agama</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Alamat <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="alamat" id="alamat" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Golongan Darah <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="golongan_darah" id="golongan_darah" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Telepon <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="telepon" id="telepon" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Sekolah Asal <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="sekolah_asal" id="sekolah_asal" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Diterima sebagai <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="diterima_sebagai" id="diterima_sebagai" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Tahun diterima <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" name="tahun_terima" id="tahun_terima" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Hobi <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="hobi" id="hobi" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Nama Ayah <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="nama_ayah" id="nama_ayah" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Tempat Lahir Ayah <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="tempat_lahir_ayah" id="tempat_lahir_ayah" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Tanggal Lahir Ayah <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tgl_lahir_ayah" id="tgl_lahir_ayah" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Pekerjaan Ayah <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="pekerjaan_ayah" id="pekerjaan_ayah" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Agama Ayah <span class="text-danger">*</span></label>
+                                <select class="form-control" name="agama_ayah" id="agama_ayah" required>
+                                    <option value="">Pilih Agama</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Nama Ibu <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="nama_ibu" id="nama_ibu" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Tempat Lahir Ibu <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="tempat_lahir_ibu" id="tempat_lahir_ibu" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Tanggal Lahir Ibu <span class="text-danger">*</span></label>
+                                <input type="date" class="form-control" name="tgl_lahir_ibu" id="tgl_lahir_ibu" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Pekerjaan Ibu <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="pekerjaan_ibu" id="pekerjaan_ibu" required>
+                            </div>
+                        </div>
+                        <div class="row mt-4">
+                            <div class="col-md-4">
+                                <label>Agama Ibu <span class="text-danger">*</span></label>
+                                <select class="form-control" name="agama_ibu" id="agama_ibu" required>
+                                    <option value="">Pilih Agama</option>
+                                    <option value="Islam">Islam</option>
+                                    <option value="Kristen">Kristen</option>
+                                    <option value="Hindu">Hindu</option>
+                                    <option value="Buddha">Buddha</option>
+                                    <option value="Konghucu">Konghucu</option>
+                                </select>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Alamat Orang Tua <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="alamat_ortu" id="alamat_ortu" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label>Telepon Orang Tua <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" name="telepon_ortu" id="telepon_ortu" required>
+                            </div>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            <label>Nik <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" name="nik" id="nik" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Nama Lengkap <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nama_lengkap" id="nama_lengkap" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Tempat Lahir <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="tempat_lahir" id="tempat_lahir" disabled>
-                        </div>
+                    <div class="modal-footer">
+                        <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Tutup</a>
+                        <button type="submit" class="btn btn-primary ">Simpan</button>
                     </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Tanggal Lahir <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="tgl_lahir" id="tgl_lahir" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Agama <span class="text-danger">*</span></label>
-                            <select class="form-control" name="agama" id="agama" disabled>
-                                <option value="">Pilih Agama</option>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Konghucu">Konghucu</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Alamat <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="alamat" id="alamat" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Golongan Darah <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="golongan_darah" id="golongan_darah" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Telepon <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="telepon" id="telepon" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Sekolah Asal <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="sekolah_asal" id="sekolah_asal" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Diterima sebagai <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="diterima_sebagai" id="diterima_sebagai" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Tahun diterima <span class="text-danger">*</span></label>
-                            <input type="number" class="form-control" name="tahun_terima" id="tahun_terima" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Hobi <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="hobi" id="hobi" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Nama Ayah <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nama_ayah" id="nama_ayah" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Tempat Lahir Ayah <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="tempat_lahir_ayah" id="tempat_lahir_ayah" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Tanggal Lahir Ayah <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="tgl_lahir_ayah" id="tgl_lahir_ayah" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Pekerjaan Ayah <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="pekerjaan_ayah" id="pekerjaan_ayah" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Agama Ayah <span class="text-danger">*</span></label>
-                            <select class="form-control" name="agama_ayah" id="agama_ayah" disabled>
-                                <option value="">Pilih Agama</option>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Konghucu">Konghucu</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Nama Ibu <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="nama_ibu" id="nama_ibu" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Tempat Lahir Ibu <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="tempat_lahir_ibu" id="tempat_lahir_ibu" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Tanggal Lahir Ibu <span class="text-danger">*</span></label>
-                            <input type="date" class="form-control" name="tgl_lahir_ibu" id="tgl_lahir_ibu" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Pekerjaan Ibu <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="pekerjaan_ibu" id="pekerjaan_ibu" disabled>
-                        </div>
-                    </div>
-                    <div class="row mt-4">
-                        <div class="col-md-4">
-                            <label>Agama Ibu <span class="text-danger">*</span></label>
-                            <select class="form-control" name="agama_ibu" id="agama_ibu" disabled>
-                                <option value="">Pilih Agama</option>
-                                <option value="Islam">Islam</option>
-                                <option value="Kristen">Kristen</option>
-                                <option value="Hindu">Hindu</option>
-                                <option value="Buddha">Buddha</option>
-                                <option value="Konghucu">Konghucu</option>
-                            </select>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Alamat Orang Tua <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="alamat_ortu" id="alamat_ortu" disabled>
-                        </div>
-                        <div class="col-md-4">
-                            <label>Telepon Orang Tua <span class="text-danger">*</span></label>
-                            <input type="text" class="form-control" name="telepon_ortu" id="telepon_ortu" disabled>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a href="javascript:void(0);" class="btn btn-link link-success fw-medium" data-bs-dismiss="modal"><i class="ri-close-line me-1 align-middle"></i> Tutup</a>
-                </div>
+                </form>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
@@ -252,6 +250,7 @@
 
     <script>
         function detail(id) {
+            $('#formSiswa')[0].reset();
             var url = "{{ route('show-siswa') }}" + "/" + id;
 
             $.ajax({
@@ -264,6 +263,8 @@
                         $('#errorMessage').addClass('d-none');
 
                         const data = response.data;
+                        $('#formSiswa')[0].reset();
+                        $('#formSiswa').attr("action", "{{ route('siswa-simpan') }}" + "/" + data.id);
                         $('#nik').val(data.siswa.nik);
                         $('#nama_lengkap').val(data.siswa.nama_lengkap);
                         $('#tempat_lahir').val(data.siswa.tempat_lahir);
