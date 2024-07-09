@@ -331,11 +331,6 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            $cekUsername = User::where('username', $request->username)->first();
-            if (!empty($cekUsername)) {
-                throw new \Exception("User dengan username $request->username sudah pernah terdaftar");
-            }
-
             $dataUser = [
                 "username" => $request->username,
                 "status" => 1,
@@ -359,6 +354,11 @@ class UserController extends Controller
                 $user = User::find($kepalaSekolah->pengguna_id);
                 if (empty($user)) {
                     throw new \Exception("User tidak ditemukan");
+                }
+
+                $cekUsername = User::where('username', $request->username)->where('id', '!=', $kepalaSekolah->pengguna_id)->first();
+                if (!empty($cekUsername)) {
+                    throw new \Exception("User dengan username $request->username sudah pernah terdaftar");
                 }
 
                 if (!$user->update($dataUser)) {

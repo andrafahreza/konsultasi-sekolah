@@ -123,6 +123,10 @@ class ManajemenDataBkController extends Controller
         ->where(function ($query) use ($user) {
             if ($user->tipe == "orangtua") {
                 $query->where('siswa_id', $user->orangtua->siswa_id);
+            } else if ($user->tipe == "siswa") {
+                $query->where('siswa_id', $user->siswa->id);
+            } else if ($user->tipe == "konselor") {
+                $query->where('konselor_id', $user->konselor->id);
             }
         })
         ->latest()

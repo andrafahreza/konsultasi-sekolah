@@ -247,7 +247,7 @@ class ChatController extends Controller
             $chat = Chat::where('manajemen_data_bk_id', $request->id)->first();
             $chat->status_chat = "nonactive";
 
-            if (!$data->update()) {
+            if (!$chat->update()) {
                 throw new \Exception("Terjadi kesalahan");
             }
 
