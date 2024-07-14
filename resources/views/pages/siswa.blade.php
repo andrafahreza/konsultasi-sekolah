@@ -208,6 +208,14 @@
                                 <label>Telepon Orang Tua <span class="text-danger">*</span></label>
                                 <input type="text" class="form-control" name="telepon_ortu" id="telepon_ortu" required>
                             </div>
+                            <div class="col-md-4 mt-4">
+                                <label>Jenis Kelamin <span class="text-danger">*</span></label>
+                                <select class="form-control" name="jenis_kelamin" id="jenis_kelamin" required>
+                                    <option value="">Pilih Jenis Kelamin</option>
+                                    <option value="Laki-Laki">Laki-Laki</option>
+                                    <option value="Perempuan">Perempuan</option>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -284,6 +292,7 @@
                         $('#agama_ibu').val(data.siswa.agama_ibu);
                         $('#alamat_ortu').val(data.siswa.alamat_ortu);
                         $('#telepon_ortu').val(data.siswa.telepon_ortu);
+                        $('#jenis_kelamin').val(data.siswa.jenis_kelamin);
                     } else {
                         $("#formSiswa :input").prop("disabled", true);
                         $('#errorMessage').removeClass('d-none');

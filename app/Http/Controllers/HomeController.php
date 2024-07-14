@@ -27,6 +27,25 @@ class HomeController extends Controller
         ->latest()
         ->get();
 
-        return view('pages.home', compact("title", "siswa", "konselor", "bk"));
+        $laki = array();
+        $perempuan = array();
+        for ($i=1; $i <= 12; $i++) {
+            $data = ManajemenDataBk::whereMonth('tgl_bk', $i)->get();
+
+            $hitungLaki = 0;
+            $hitungPerempuan = 0;
+            foreach ($data as $key => $value) {
+                if ($value->siswa->jenis_kelamin == "Laki-Laki") {
+                    $hitungLaki += 1;
+                } else {
+                    $hitungPerempuan += 1;
+                }
+            }
+
+            array_push($laki, $hitungLaki);
+            array_push($perempuan, $hitungPerempuan);
+        }
+
+        return view('pages.home', compact("title", "siswa", "konselor", "bk", 'laki', 'perempuan'));
     }
 }

@@ -95,6 +95,7 @@ class UserController extends Controller
                 "agama_ibu" => $request->agama_ibu,
                 "alamat_ortu" => $request->alamat_ortu,
                 "telepon_ortu" => $request->telepon_ortu,
+                "jenis_kelamin" => $request->jenis_kelamin,
             ];
 
             if ($id != null) {

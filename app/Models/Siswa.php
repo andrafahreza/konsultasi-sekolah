@@ -15,6 +15,7 @@ class Siswa extends Model
         'pengguna_id',
         'nik',
         'nama_lengkap',
+        'jenis_kelamin',
         'tempat_lahir',
         'tgl_lahir',
         'agama',
