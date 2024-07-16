@@ -52,10 +52,22 @@
                                                     <button type="button" class="btn btn-secondary" onclick="edit({{ $item->id }})" id="btnEdit">Edit</button>
                                                     <button type="button" class="btn btn-danger" onclick="hapus({{ $item->id }})" id="btnHapus">Hapus</button>
                                                 @else
-                                                    @if (strtotime(date('Y-m-d H:i:s')) >= strtotime(date($item->tgl_bk)))
-                                                        <a href="{{ route('start-chat', [$item->id]) }}" class="btn btn-warning">Mulai</a>
+                                                    @if ($item->acc_konselor == "diterima")
+                                                        @if (strtotime(date('Y-m-d H:i:s')) >= strtotime(date($item->tgl_bk)))
+                                                            <a href="{{ route('start-chat', [$item->id]) }}" class="btn btn-warning">Mulai</a>
+                                                        @else
+                                                            <span class="badge bg-secondary">Belum dapat memulai konsultasi</span>
+                                                        @endif
+                                                    @elseif ($item->acc_konselor == "ditolak")
+                                                        <span class="badge bg-danger">Konselor menolak</span>
+                                                        <p>Ket: {{ $item->alasan_tolak }}</p>
                                                     @else
-                                                        <span class="badge bg-secondary">Belum dapat memulai konsultasi</span>
+                                                        @if (Auth::user()->tipe == "siswa")
+                                                            <span class="badge bg-warning">Menunggu konfirmasi konselor</span>
+                                                        @elseif (Auth::user()->tipe == "konselor")
+                                                            <button class="btn btn-success" onclick="terima({{ $item->id }})" id="btnTerima">Terima</button>
+                                                            <button class="btn btn-danger" onclick="tolak({{ $item->id }})" id="btnTolak">Tolak</button>
+                                                        @endif
                                                     @endif
                                                 @endif
                                             </td>
@@ -138,6 +150,52 @@
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
     </div><!-- /.modal -->
+
+    <div class="modal fade terima" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <i class="bi bi-exclamation-triangle text-warning display-5"></i>
+                    <div class="mt-4">
+                        <h4 class="mb-3">Terima Data BK!</h4>
+                        <p class="text-muted mb-4"> Yakin ingin menerima permintaan konsultasi ini? </p>
+                        <div class="hstack gap-2 justify-content-center">
+                            <form action="{{ route('data-bk-terima') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" id="terima_id">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-success">Ya</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
+    <div class="modal fade tolak" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-body text-center p-5">
+                    <i class="bi bi-exclamation-triangle text-warning display-5"></i>
+                    <div class="mt-4">
+                        <form action="{{ route('data-bk-tolak') }}" method="POST">
+                            <h4 class="mb-3">Terima Data BK!</h4>
+                            <p class="text-muted mb-4"> Yakin ingin menolak permintaan konsultasi ini? </p>
+                            <textarea class="form-control" name="alasan_tolak" placeholder="Masukkan alasan penolakan" required></textarea>
+                            <div class="hstack gap-2 justify-content-center mt-4">
+                                @csrf
+                                <input type="hidden" name="id" id="tolak_id">
+                                <button type="button" class="btn btn-light" data-bs-dismiss="modal">Tutup</button>
+                                <button type="submit" class="btn btn-success">Ya</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
+
 
     <div class="modal fade hapus" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered">
@@ -226,6 +284,16 @@
         function hapus(id) {
             $('#hapus_id').val(id);
             $('.hapus').modal('toggle');
+        }
+
+        function terima(id) {
+            $('#terima_id').val(id);
+            $('.terima').modal('toggle');
+        }
+
+        function tolak(id) {
+            $('#tolak_id').val(id);
+            $('.tolak').modal('toggle');
         }
     </script>
 @endpush

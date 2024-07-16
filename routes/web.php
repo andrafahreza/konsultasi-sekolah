@@ -66,6 +66,8 @@ Route::middleware('auth')->group(function() {
             Route::get('show/{id?}', [ManajemenDataBkController::class, 'showBk'])->name("show-data-bk");
             Route::post('simpan/{id?}', [ManajemenDataBkController::class, 'simpanBk'])->name("data-bk-simpan");
             Route::post('hapus', [ManajemenDataBkController::class, 'hapusBk'])->name("data-bk-hapus");
+            Route::post('tolak', [ManajemenDataBkController::class, 'tolakBk'])->name("data-bk-tolak");
+            Route::post('terima', [ManajemenDataBkController::class, 'terimaBk'])->name("data-bk-terima");
         });
 
         Route::prefix("history-bk")->group(function() {

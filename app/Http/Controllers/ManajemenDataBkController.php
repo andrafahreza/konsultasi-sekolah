@@ -43,6 +43,7 @@ class ManajemenDataBkController extends Controller
                 "tgl_bk" => $request->tgl_bk,
                 "batas_waktu" => $request->batas_waktu,
                 "jenis" => $request->jenis,
+                'acc_konselor' => "menunggu"
             ];
 
             if ($id != null) {
@@ -133,5 +134,46 @@ class ManajemenDataBkController extends Controller
         ->get();
 
         return view('pages.history-bk', compact('title', 'data'));
+    }
+
+    public function tolakBk(Request $request)
+    {
+        try {
+            $data = ManajemenDataBk::findOrFail($request->id);
+            $data->alasan_tolak = $request->alasan_tolak;
+            $data->acc_konselor = "ditolak";
+
+            if (!$data->update()) {
+                throw new \Exception("Gagal menolak data bk");
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil menolak data bk");
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($th->getMessage());
+        }
+    }
+
+    public function terimaBk(Request $request)
+    {
+        try {
+            $data = ManajemenDataBk::findOrFail($request->id);
+            $data->acc_konselor = "diterima";
+
+            if (!$data->update()) {
+                throw new \Exception("Gagal menerima data bk");
+            }
+
+            DB::commit();
+
+            return redirect()->back()->with("success", "Berhasil menerima data bk");
+
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            return redirect()->back()->withErrors($th->getMessage());
+        }
     }
 }

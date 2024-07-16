@@ -18,7 +18,9 @@ class ManajemenDataBk extends Model
         'jenis',
         'isi',
         'tindakan',
-        'batas_waktu'
+        'batas_waktu',
+        'acc_konselor',
+        'alasan_tolak',
     ];
 
     public function siswa(){
