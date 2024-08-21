@@ -67,12 +67,12 @@
             </th>
             <th style=" font-size: 17px;">
                 <center>
-                    PEMERINTAHAN KABUPATEN MEDAN <br> DINAS PENDIDIKAN <br> UNIT PELAKSANA DINAS KECAMATAN MEDAN HELVETIA <br> SMP KARYA BHAKTI <br>
+                    PEMERINTAHAN KOTA MEDAN <br> DINAS PENDIDIKAN <br> UNIT PELAKSANA DINAS KECAMATAN MEDAN HELVETIA <br> SMP KARYA BHAKTI <br>
                     <span style="font-weight: normal; font-size: 14px">Jl. Mesjid No. 57, Cinta Damai Sumatera Utara, No: 061846308 email : smpskaryabhakti@gmail.com</span>
                 </center>
             </th>
             <th>
-                <img src="https://smpn1jatinegara.sch.id/wp-content/uploads/2020/10/logo-kemdikbud-ori-300x300.png" style="width: 140px;">
+                <img src="https://nandini.asia/images.png" style="width: 140px;">
             </th>
         </tr>
     </table> <hr>
@@ -116,7 +116,7 @@
             <td style="text-align: right; font-size: 17px;"><br><br><br></td>
         </tr>
         <tr>
-            <td style="text-align: right; font-size: 17px;">(&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;)</td>
+            <td style="text-align: right; font-size: 17px;">({{ $kepsek->nama }})</td>
         </tr>
         <tr>
             <td style="text-align: right; font-size: 17px;">NIP. {{ $kepsek->nip }}</td>
